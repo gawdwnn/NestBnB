@@ -1,9 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import ReactDOM from 'react-dom';
-import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache, useMutation} from '@apollo/client';
+import {
+  ApolloClient,
+  ApolloProvider,
+  createHttpLink,
+  InMemoryCache,
+  useMutation,
+} from '@apollo/client';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Affix, Layout, Spin} from 'antd';
-import { setContext } from '@apollo/client/link/context';
+import {setContext} from '@apollo/client/link/context';
 import {Home, Host, Listing, Listings, NotFound, User, Login, AppHeader} from './sections';
 import './styles/index.css';
 import {Viewer} from './lib/types';
@@ -47,15 +53,16 @@ const App = () => {
   const [viewer, setViewer] = useState<Viewer>(initialViewer);
 
   const [logIn, {error}] = useMutation<LogInData, LogInVariables>(LOG_IN, {
+    onError: (err) => console.log(err),
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
 
         // set token in sessionStorage
         if (data.logIn.token) {
-          sessionStorage.setItem("token", data.logIn.token);
+          sessionStorage.setItem('token', data.logIn.token);
         } else {
-          sessionStorage.removeItem("token");
+          sessionStorage.removeItem('token');
         }
       }
     },
@@ -99,7 +106,7 @@ const App = () => {
           />
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/user/:id" component={User} />
+          <Route exact path="/user/:id" render={(props) => <User {...props} viewer={viewer} />} />
           <Route component={NotFound} />
         </Switch>
       </Layout>
