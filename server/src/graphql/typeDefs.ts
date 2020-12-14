@@ -42,7 +42,7 @@ export const typeDefs = gql`
   }
 
   type Listings {
-    region: String!
+    region: String
     total: Int!
     result: [Listing!]!
   }
