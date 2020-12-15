@@ -10,7 +10,7 @@ import {
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {Affix, Layout, Spin} from 'antd';
 import {setContext} from '@apollo/client/link/context';
-import {Home, Host, Listing, Listings, NotFound, User, Login, AppHeader} from './sections';
+import {Home, Host, Listing, Listings, NotFound, User, Login, AppHeader, Stripe} from './sections';
 import './styles/index.css';
 import {Viewer} from './lib/types';
 import {LOG_IN} from './lib/graphql/mutations';
@@ -104,9 +104,18 @@ const App = () => {
             path="/login"
             render={(props) => <Login {...props} setViewer={setViewer} />}
           />
+          <Route
+            exact
+            path="/stripe"
+            render={(props) => <Stripe {...props} viewer={viewer} setViewer={setViewer} />}
+          />
+          <Route
+            exact
+            path="/user/:id"
+            render={(props) => <User {...props} viewer={viewer} setViewer={setViewer} />}
+          />
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/user/:id" render={(props) => <User {...props} viewer={viewer} />} />
           <Route component={NotFound} />
         </Switch>
       </Layout>
