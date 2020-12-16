@@ -275,12 +275,13 @@ export const Host = ({viewer}: Props) => {
               name="avatar"
               listType="picture-card"
               showUploadList={false}
+              className="avatar-uploader"
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               beforeUpload={beforeImageUpload}
               onChange={handleImageUpload}
             >
               {imageBase64Value ? (
-                <img src={imageBase64Value} alt="Listing" />
+                <img src={imageBase64Value} style={{ width: '100%' }} alt="Listing" />
               ) : (
                 <div>
                   {imageLoading ? <LoadingOutlined /> : <PlusOutlined />}
