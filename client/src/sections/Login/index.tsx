@@ -28,7 +28,6 @@ export const Login = ({setViewer}: Props) => {
     onError: () =>
       displayErrorMessage("Sorry! We weren't able to log you in. Please try again later!"),
     onCompleted: (data) => {
-      console.log(data);
       window.location.href = data.authUrl;
     },
   });
@@ -37,7 +36,7 @@ export const Login = ({setViewer}: Props) => {
     LogInData,
     LogInVariables
   >(LOG_IN, {
-    onError: (err) => console.log(err),
+    // onError: (err) => console.log(err),
     onCompleted: (data) => {
       if (data && data.logIn && data.logIn.token) {
         setViewer(data.logIn);

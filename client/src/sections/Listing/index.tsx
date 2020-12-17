@@ -11,15 +11,20 @@ import {
 import {ErrorBanner, PageSkeleton} from '../../lib/components';
 import {ListingBookings, ListingDetails} from './components';
 import {ListingCreateBooking} from './components/ListingCreateBooking';
+import { Viewer } from '../../lib/types';
 
 interface MatchParams {
   id: string;
 }
 
+interface Props {
+  viewer: Viewer
+}
+
 const {Content} = Layout;
 const PAGE_LIMIT = 3;
 
-export const Listing = ({match}: RouteComponentProps<MatchParams>) => {
+export const Listing = ({match, viewer}: Props & RouteComponentProps<MatchParams>) => {
   const [bookingsPage, setBookingsPage] = useState(1);
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
@@ -60,6 +65,9 @@ export const Listing = ({match}: RouteComponentProps<MatchParams>) => {
 
   const listingCreateBookingElement = listing ? (
     <ListingCreateBooking
+      viewer={viewer}
+      host={listing.host}
+      bookingsIndex={listing.bookingsIndex}
       price={listing.price}
       checkInDate={checkInDate}
       checkOutDate={checkOutDate}
