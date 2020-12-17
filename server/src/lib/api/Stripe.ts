@@ -10,4 +10,20 @@ export const StripeResolver = {
     const response = await client.oauth.token({grant_type: 'authorization_code', code});
     return response;
   },
+  charge: async (amount: number, source: string, stripeAccount: string): Promise<void> => {
+    const res = await client.charges.create(
+      {
+        amount,
+        currency: 'usd',
+        source,
+        application_fee_amount: Math.round(amount * 0.05),
+      },
+      {
+        stripeAccount: stripeAccount,
+      },
+    );
+    if (res.status !== 'succeeded') {
+      throw new Error('Failed to create charge with stripe');
+    }
+  },
 };
