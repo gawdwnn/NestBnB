@@ -26,6 +26,7 @@ export const Listings = ({match}: RouteComponentProps<MatchParams>) => {
   const [page, setPage] = useState(1);
 
   const {data, loading, error} = useQuery<ListingsData, ListingsVariables>(LISTINGS, {
+    fetchPolicy: 'cache-and-network',
     skip: locationRef.current !== match.params.location && page !== 1,
     variables: {
       location: match.params.location,

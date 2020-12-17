@@ -26,6 +26,7 @@ export const User = ({match, viewer, setViewer}: Props & RouteComponentProps<Mat
 
   const {data, loading, error, refetch} = useQuery<UserData, UserVariables>(USER, {
     variables: {id: match.params.id, listingsPage, bookingsPage, limit: PAGE_LIMIT},
+    fetchPolicy: 'cache-and-network',
   });
 
   const handleUserRefetch = async () => await refetch();

@@ -10,14 +10,13 @@ import {
 import {DISCONNECT_STRIPE} from '../../../../lib/graphql/mutations';
 import {DisconnectStripe as DisconnectStripeData} from '../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
 import {Viewer} from '../../../../lib/types';
-import { USER } from '../../../../lib/graphql/queries';
 
 interface Props {
   user: UserData['user'];
   viewerIsUser: boolean;
   viewer: Viewer;
   setViewer: (viewer: Viewer) => void;
-  handleUserRefetch: () => void;
+  handleUserRefetch: () => Promise<void>;
 }
 
 const {Paragraph, Text, Title} = Typography;
